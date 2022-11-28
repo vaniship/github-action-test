@@ -4,7 +4,8 @@ jobs:
    build:
      name: build 
    steps:
-     - uses: actions/checkout@v2
+     - name: Checkout
+       uses: actions/checkout@v2.5.0
      - name: Step1
        run: echo Hello, world!
 #        uses: bitoiu/node-js-action-template@v1.0
