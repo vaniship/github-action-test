@@ -55,8 +55,8 @@ const trim = (text) => text && text.replace(/\s*(\n\s*|\n\s*$)/g, '');
         }))
 
         console.log(`√ gen ${since}/${language} ok!`);
-      } catch {
-        console.log(`x gen ${since}/${language} failed!`);
+      } catch (e) {
+        console.log(`x gen ${since}/${language} failed!`, e.message);
       }
       }),
       new Promise((resolve) => setTimeout(resolve, 1500))
