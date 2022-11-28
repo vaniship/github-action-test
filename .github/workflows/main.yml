@@ -14,5 +14,6 @@ jobs:
          run: touch package.json
        - name: Workspace Commit
          uses: gha-utilities/workspace-commit@v0.0.3
-         message: update file 
+         with:
+           message: update file 
      
