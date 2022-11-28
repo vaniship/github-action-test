@@ -19,7 +19,8 @@ const trim = (text) => text && text.replace(/\s*(\n\s*|\n\s*$)/g, '');
 
 ;(async () => {
   for (const language of languages) {
-    await Promise.all(sinces.map(async (since) => {
+    await Promise.all([
+      ...sinces.map(async (since) => {
       try {
         console.log(`\n> gen ${since}/${language} ...`);
 
@@ -57,8 +58,8 @@ const trim = (text) => text && text.replace(/\s*(\n\s*|\n\s*$)/g, '');
       } catch {
         console.log(`x gen ${since}/${language} failed!`);
       }
-    }))
-
-    await new Promise((resolve, setTimeout(resolve, 1200)));
+      }),
+      new Promise((resolve, setTimeout(resolve, 1500)))
+    ])
   }
 })()
