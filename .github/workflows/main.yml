@@ -11,7 +11,7 @@ jobs:
          run: echo Hello, world!
 #        uses: bitoiu/node-js-action-template@v1.0
        - name: add file
-         run: cat "{}" > package.json
+         run: echo "{}" > package.json
        - name: Workspace Commit
          uses: EndBug/add-and-commit@v9
          with:
