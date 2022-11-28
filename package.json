@@ -1,1 +1,22 @@
-{}
+{
+  "name": "github-action-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "node scripts/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaniship/github-action-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vaniship/github-action-test/issues"
+  },
+  "homepage": "https://github.com/vaniship/github-action-test#readme",
+  "description": "",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12"
+  }
+}
