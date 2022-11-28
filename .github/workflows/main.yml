@@ -1,30 +1,23 @@
-on: 
+on:
   workflow_dispatch:
 jobs:
-   build:
-     name: build 
-     runs-on: ubuntu-latest
-     steps:
-       - name: Checkout
-         uses: actions/checkout@v2.5.0
-       - name: Step1
-         run: echo Hello, world!
-       - name: add file
-         run: echo "{}" > package.json
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+      - run: npm run ci
+      - run: npm run test
 #       - name: Workspace Commit
-#         uses: EndBug/add-and-commit@v9
-#         with:
-#           author_name: vaniship
-#           author_email: vaniship@gmail.com
-#           message: "AUTO GENERATE README"
-#           add: "*.json"  
-       - name: Setup node
-         uses: actions/setup-node@v3
-         with:
-           node-version: 16.13.x
-           cache: npm
-       - name: test node version
-         run: |
-           node -v
-           npm -v
-           npm info webpack
+      #         uses: EndBug/add-and-commit@v9
+      #         with:
+      #           author_name: vaniship
+      #           author_email: vaniship@gmail.com
+      #           message: "AUTO GENERATE README"
+      #           add: "*.json"
