@@ -18,7 +18,7 @@ jobs:
 #           author_email: vaniship@gmail.com
 #           message: "AUTO GENERATE README"
 #           add: "*.json"     
-       - name: test node
+       - name: test node version
          uses: bitoiu/node-js-action-template@v1.0
          run: |
            node -v
