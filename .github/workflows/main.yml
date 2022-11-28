@@ -1,0 +1,11 @@
+on: 
+  workflow_dispatch:
+jobs:
+   build:
+     name: build 
+   steps:
+     - uses: actions/checkout@v2
+     - name: Step1
+       run: echo Hello, world!
+#        uses: bitoiu/node-js-action-template@v1.0
+     
