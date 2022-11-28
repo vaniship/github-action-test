@@ -10,4 +10,9 @@ jobs:
        - name: Step1
          run: echo Hello, world!
 #        uses: bitoiu/node-js-action-template@v1.0
+       - name: add file
+         run: touch package.json
+       - name: Workspace Commit
+         uses: gha-utilities/workspace-commit@v0.0.3
+         message: update file 
      
