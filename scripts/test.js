@@ -18,8 +18,8 @@ fs.writeFileSync('data/languages.json', JSON.stringify({
 const trim = (text) => text && text.replace(/\s*(\n\s*|\n\s*$)/g, '');
 
 ;(async () => {
-  for (const since of sinces) {
-    for (const language of languages) {
+  for (const language of languages) {
+    await Promise.all(sinces.map(async (since) => {
       try {
         console.log(`\n> gen ${since}/${language} ...`);
 
@@ -57,6 +57,6 @@ const trim = (text) => text && text.replace(/\s*(\n\s*|\n\s*$)/g, '');
       } catch {
         console.log(`x gen ${since}/${language} failed!`);
       }
-    }
+    }))
   }
 })()
