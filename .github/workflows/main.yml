@@ -9,22 +9,18 @@ jobs:
          uses: actions/checkout@v2.5.0
        - name: Step1
          run: echo Hello, world!
-#        uses: bitoiu/node-js-action-template@v1.0
        - name: add file
          run: echo "{}" > package.json
-       - name: Workspace Commit
-         uses: EndBug/add-and-commit@v9
-         with:
-           author_name: vaniship
-           author_email: vaniship@gmail.com
-           message: "AUTO GENERATE README"
-           add: "*.json"     
-#        run: |
-#          touch package.json
-#          git add .
-#          git commit -m "chore: update file"
 #       - name: Workspace Commit
-#         uses: gha-utilities/workspace-commit@v0.0.3
+#         uses: EndBug/add-and-commit@v9
 #         with:
-#           message: update file 
-     
+#           author_name: vaniship
+#           author_email: vaniship@gmail.com
+#           message: "AUTO GENERATE README"
+#           add: "*.json"     
+       - name: test node
+         uses: bitoiu/node-js-action-template@v1.0
+         run: |
+           node -v
+           npm -v
+           npm info webpack
