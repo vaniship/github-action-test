@@ -58,5 +58,7 @@ const trim = (text) => text && text.replace(/\s*(\n\s*|\n\s*$)/g, '');
         console.log(`x gen ${since}/${language} failed!`);
       }
     }))
+
+    await new Promise((resolve, setTimeout(resolve, 1200)));
   }
 })()
