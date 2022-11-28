@@ -1,4 +1,5 @@
 const fs = require('fs');
+const dayjs = require('dayjs');
 const axios = require('axios');
 const cheerio = require('cheerio');
 
@@ -29,5 +30,8 @@ const trim = (text) => text && text.replace(/\s*(\n\s*|\n\s*$)/g, '');
     });
 
   fs.mkdirSync('data/daily/', { recursive: true });
-  fs.writeFileSync('data/daily/.json', JSON.stringify(result))
+  fs.writeFileSync('data/daily/.json', JSON.stringify({
+    updateTime: dayjs().format('YYYY-MM-DD hh:mm:ss'),
+    data: result
+  }))
 })()

@@ -14,10 +14,10 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run test
-#       - name: Workspace Commit
-      #         uses: EndBug/add-and-commit@v9
-      #         with:
-      #           author_name: vaniship
-      #           author_email: vaniship@gmail.com
-      #           message: "AUTO GENERATE README"
-      #           add: "*.json"
+      - name: Workspace Commit
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: vaniship
+          author_email: vaniship@gmail.com
+          message: "AUTO GENERATE README"
+          add: "*.json"
