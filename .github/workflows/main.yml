@@ -11,9 +11,12 @@ jobs:
          run: echo Hello, world!
 #        uses: bitoiu/node-js-action-template@v1.0
        - name: add file
-         run: touch package.json
-       - name: Workspace Commit
-         uses: gha-utilities/workspace-commit@v0.0.3
-         with:
-           message: update file 
+         run: |
+           touch package.json
+           git add .
+           git commit -m "chore: update file"
+#       - name: Workspace Commit
+#         uses: gha-utilities/workspace-commit@v0.0.3
+#         with:
+#           message: update file 
      
