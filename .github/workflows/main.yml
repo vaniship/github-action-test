@@ -17,9 +17,13 @@ jobs:
 #           author_name: vaniship
 #           author_email: vaniship@gmail.com
 #           message: "AUTO GENERATE README"
-#           add: "*.json"     
+#           add: "*.json"  
+       - name: Setup node
+         uses: actions/setup-node@v3
+         with:
+           node-version: 16.13.x
+           cache: npm
        - name: test node version
-         uses: bitoiu/node-js-action-template@v1.0
          run: |
            node -v
            npm -v
