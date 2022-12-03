@@ -13,7 +13,7 @@ jobs:
           node-version: 16
           cache: npm
       - run: npm ci
-      - run: npm run test
+      - run: npm run update-trending-data
       - name: Workspace Commit
         uses: EndBug/add-and-commit@v9
         with:
