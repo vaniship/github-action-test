@@ -16,7 +16,7 @@ module.exports = {
       languageColor: ['p+div>span>span[class=repo-language-color]', (el) => (el.attr('style') || '').replace('background-color: ', '') || undefined],
       stargazers_count: ['p+div>a[href$=stargazers]', (el) => getInt(el.text())],
       forks_count: ['p+div>a[href$=members]', (el) => getInt(el.text())],
-      ownner: ['p+div>span>a>img', (el) => ({
+      owner: ['p+div>span>a>img', (el) => ({
         avatar_url: el.attr('src'),
         login: el.attr('alt')?.replace(/^@/, ''),
       })],

@@ -38,7 +38,7 @@ fs.writeFileSync('data/languages.json', JSON.stringify({
         console.log(`x gen ${since}/${language} failed!`, e.message);
       }
       }),
-      new Promise((resolve) => setTimeout(resolve, 2500))
+      new Promise((resolve) => setTimeout(resolve, 3000))
     ])
   }
 })()
