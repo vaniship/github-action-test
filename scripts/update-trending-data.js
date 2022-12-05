@@ -9,7 +9,8 @@ const MAX_RETRY = 5;
 const sinces = ['daily', 'weekly', 'monthly']
 
 sinces.forEach((since) => {
-  fs.mkdirSync(`data/${since}/`, { recursive: true });
+  fs.mkdirSync(`data/repositories/${since}/`, { recursive: true });
+  fs.mkdirSync(`data/developers/${since}/`, { recursive: true });
 })
 
 fs.writeFileSync('data/languages.json', JSON.stringify({
