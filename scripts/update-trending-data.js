@@ -51,7 +51,7 @@ async function fetchGithubTrendingHtml(type, language, since, retry = 0) {
       ...sinces.map(async (since) => {
         try {
           console.log(`\n> gen repositories ${since}/${language} ...`);
-          const repositories = parser.repo(await fetchGithubTrendingHtml('repositories', language, since));
+          const repositories = parser.repositories(await fetchGithubTrendingHtml('repositories', language, since));
           fs.writeFileSync(`data/repositories/${since}/${language}.json`, JSON.stringify({
             updateTime: dayjs().format('YYYY-MM-DD hh:mm:ss'),
             data: repositories
@@ -64,7 +64,7 @@ async function fetchGithubTrendingHtml(type, language, since, retry = 0) {
       ...sinces.map(async (since) => {
         try {
           console.log(`\n> gen developers ${since}/${language} ...`);
-          const developers = parser.repo(await fetchGithubTrendingHtml('developers', language, since));
+          const developers = parser.developers(await fetchGithubTrendingHtml('developers', language, since));
           fs.writeFileSync(`data/developers/${since}/${language}.json`, JSON.stringify({
             updateTime: dayjs().format('YYYY-MM-DD hh:mm:ss'),
             data: developers

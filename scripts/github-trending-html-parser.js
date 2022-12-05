@@ -5,7 +5,7 @@ const trim = (text) => text && text.replace(/\s*(\n\s*|\n\s*$)/g, '');
 const getInt = (text) => parseInt(trim(text).replace(/,/, ''), 10) || 0
 
 module.exports = {
-  repo (html) {
+  repositories (html) {
     const $ = cheerio.load(html);
 
     const props = {
@@ -35,7 +35,7 @@ module.exports = {
         return row;
       });
   },
-  user (html) {
+  developers (html) {
     const $ = cheerio.load(html);
 
     const props = {
