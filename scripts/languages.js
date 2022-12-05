@@ -2559,10 +2559,10 @@ module.exports = [
   //   urlParam: "volt",
   //   name: "Volt",
   // },
-  // {
-  //   urlParam: "https://github.com/trending/developers",
-  //   name: "Vue",
-  // },
+  {
+    urlParam: "vue",
+    name: "Vue",
+  },
   // {
   //   urlParam: "vyper",
   //   name: "Vyper",
