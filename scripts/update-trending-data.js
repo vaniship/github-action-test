@@ -33,7 +33,7 @@ async function fetchGithubTrendingHtml(type, language, since, retry = 0) {
     } catch (error) {
       const { status } = error.response || {};
       if (status === 429) {
-        const wait = Math.pow(1.7, retry + 1) + Math.pow(1.5, retry + 1) * Math.random()
+        const wait = 10 + Math.pow(1.7, retry + 1) + Math.pow(1.5, retry + 1) * Math.random()
         console.log(`> status = 429 wait ${wait.toFixed(2)}s and retry: ${url} `);
         await sleep(wait * 1000);
         return fetchGithubTrendingHtml(type, language, since, retry + 1)
