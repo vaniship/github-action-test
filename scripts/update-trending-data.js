@@ -4,6 +4,8 @@ const axios = require('axios');
 const languages = require('./languages');
 const parser = require('./github-trending-html-parser');
 
+const MAX_RETRY = 5;
+
 const sinces = ['daily', 'weekly', 'monthly']
 
 sinces.forEach((since) => {
@@ -15,30 +17,63 @@ fs.writeFileSync('data/languages.json', JSON.stringify({
   data: languages
 }));
 
+async function sleep (time) {
+  await new Promise((resolve) => setTimeout(resolve, time))
+}
+
+async function fetchGithubTrendingHtml(type, language, since, retry = 0) {
+  const url = `https://github.com/trending${type === 'developers' ? '/developers' : ''}/${language}?since=${since}`
+  if (retry < MAX_RETRY) {
+    try {
+      const { data  } = await axios.get(url, {
+        timeout: 10000
+      });
+      return data;
+    } catch (error) {
+      const { status } = error.response || {};
+      if (status === 429) {
+        const wait = Math.pow(1.5, retry + 1) + Math.pow(1.5, retry + 1) * Math.random()
+        console.log(`> status = 429 wait ${wait.toFixed(2)}s and retry: ${url} `);
+        await sleep(wait * 1000);
+        return fetchGithubTrendingHtml(type, language, since, retry + 1)
+      }
+      throw error
+    }
+  } else {
+    throw new Error(`Max retries.(${url})`)
+  }
+}
+
 ;(async () => {
   for (const language of languages) {
     await Promise.all([
       ...sinces.map(async (since) => {
-      try {
-        console.log(`\n> gen ${since}/${language} ...`);
-
-        const { data } = await axios.get(`https://github.com/trending/${language}?since=${since}`, {
-          timeout: 10000
-        });
-
-        const repos = parser.repo(data);
-
-        fs.writeFileSync(`data/${since}/${language}.json`, JSON.stringify({
-          updateTime: dayjs().format('YYYY-MM-DD hh:mm:ss'),
-          data: repos
-        }))
-
-        console.log(`√ gen ${since}/${language} ok!`);
-      } catch (e) {
-        console.log(`x gen ${since}/${language} failed!`, e.message);
-      }
+        try {
+          console.log(`\n> gen repositories ${since}/${language} ...`);
+          const repositories = parser.repo(await fetchGithubTrendingHtml('repositories', language, since));
+          fs.writeFileSync(`data/repositories/${since}/${language}.json`, JSON.stringify({
+            updateTime: dayjs().format('YYYY-MM-DD hh:mm:ss'),
+            data: repositories
+          }))
+          console.log(`√ gen repositories ${since}/${language} ok!`);
+        } catch (e) {
+          console.log(`x gen repositories ${since}/${language} failed!`, e.message);
+        }
       }),
-      new Promise((resolve) => setTimeout(resolve, 3000))
+      ...sinces.map(async (since) => {
+        try {
+          console.log(`\n> gen developers ${since}/${language} ...`);
+          const developers = parser.repo(await fetchGithubTrendingHtml('developers', language, since));
+          fs.writeFileSync(`data/developers/${since}/${language}.json`, JSON.stringify({
+            updateTime: dayjs().format('YYYY-MM-DD hh:mm:ss'),
+            data: developers
+          }))
+          console.log(`√ gen developers ${since}/${language} ok!`);
+        } catch (e) {
+          console.log(`x gen developers ${since}/${language} failed!`, e.message);
+        }
+      }),
+      sleep(1500)
     ])
   }
 })()

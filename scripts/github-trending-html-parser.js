@@ -35,7 +35,36 @@ module.exports = {
         return row;
       });
   },
-  user () {
+  user (html) {
+    const $ = cheerio.load(html);
 
+    const props = {
+      username: ['div>a>img', (el) => el.attr('alt')?.replace(/^@/, '')],
+      name: ['div>div>div>h1', (el) => trim(el.text())],
+      type: ['null', () => 'user'],
+      url: ['div>div>div>h1>a', (el) => `https://github.com${el.attr('href')}`],
+      avatar: ['div>a>img', (el) => el.attr('src')],
+      repo: ['div>article', (el, item) => {
+        return {
+          name: el.length > 0
+            ? trim($('h1>a', el).text())
+            : trim($('div>div>div>div>p>span>span', item).text()),
+          description: el.length > 0
+            ? trim($('h1+div', el).text())
+            : trim($('div>div>div>div>p>span', item).attr('title')),
+          url: el.length > 0
+            ? `https://github.com${$('h1>a', el).attr('href')}`
+            : undefined
+        }
+      }],
+    };
+    return Array.from($('main article[id]'))
+      .map((item) => {
+        const row = {};
+        Object.keys(props).forEach((key) => {
+          row[key] = props[key][1]($(props[key][0], item), item);
+        });
+        return row;
+      });
   }
 }
