@@ -46,7 +46,7 @@ async function fetchGithubTrendingHtml(type, language, since, retry = 0) {
 }
 
 ;(async () => {
-  for (const language of languages) {
+  for (const { urlParam: language } of languages) {
     await Promise.all([
       ...sinces.map(async (since) => {
         try {
